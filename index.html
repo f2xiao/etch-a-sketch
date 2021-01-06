@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Etch-A-Sketch</title>
+  </head>
+  <body>
+    <div class="container flex">
+      <h1>ETCH-A-SKETCH</h1>
+      <div class="buttons">
+        <button id="black">Black</button>
+        <button id="rgb">RGB</button>
+        <button id="reset">Eraser</button>
+        <button id="reset">Color</button>
+      </div>
+      <div class="grid-container"></div>
+
+      <div class="grid-options">
+        <button id="reset">Clear</button>
+        <div class="size-container flex">
+          <input class="slider" type="range" step="1" name="grid-size" />
+        </div>
+        <p id="grid-size"></p>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
