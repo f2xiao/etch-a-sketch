@@ -1,19 +1,35 @@
+const gridContainer = document.querySelector(".grid-container");
+const slider = document.querySelector(".slider");
+const gridSize = document.querySelector("#grid-size");
+const clearButton = document.getElementById("clear");
+const blackButton = document.getElementById("black");
+const eraserButton = document.getElementById("eraser");
+const rgbButton = document.getElementById("rgb");
+const colorPicker = document.getElementById("colorpicker");
+let cells, gridNumber;
+const init = function () {
+  gridNumber = slider.value;
+  gridSize.textContent = gridNumber;
+  createBoard(gridNumber);
+  sketch("black");
+};
+
 const deleteBoard = function () {
   cells.forEach((cell) => {
     cell.remove();
   });
 };
 
-const eraser = function () {
-  cells = gridContainer.querySelectorAll("div");
+const sketch = function (color) {
   cells.forEach((cell) => {
+    cell.classList.add("cell");
     cell.addEventListener("mouseover", function (e) {
-      e.target.classList.add(`cell-white`);
+      e.target.style.backgroundColor = `${color}`;
     });
   });
 };
 
-const createBoard = function (gridNumber, color) {
+const createBoard = function (gridNumber) {
   for (let i = 0; i < gridNumber; i++) {
     for (let j = 0; j < gridNumber; j++) {
       gridContainer.appendChild(document.createElement("div"));
@@ -21,42 +37,48 @@ const createBoard = function (gridNumber, color) {
   }
   gridContainer.style = `grid-template-rows: repeat(${gridNumber}, 1fr);grid-template-columns: repeat(${gridNumber},1fr)`;
   cells = gridContainer.querySelectorAll("div");
-  cells.forEach((cell) => {
-    cell.classList.add("cell");
-    cell.addEventListener("mouseover", function (e) {
-      e.target.classList.add(`cell-${color}`);
-    });
-  });
 };
 
-const gridContainer = document.querySelector(".grid-container");
-const slider = document.querySelector(".slider");
-const gridSize = document.querySelector("#grid-size");
-const clearButton = document.getElementById("clear");
-const blackButton = document.getElementById("black");
-const eraserButton = document.getElementById("eraser");
-let cells;
-let gridNumber = slider.value;
-gridSize.textContent = gridNumber;
-
-createBoard(gridNumber, "black");
-
 clearButton.addEventListener("click", function () {
+  deleteBoard();
+  init();
+});
+
+init();
+slider.addEventListener("change", function (e) {
+  deleteBoard();
+  init();
+});
+eraserButton.addEventListener("click", function () {
+  sketch("white");
+});
+blackButton.addEventListener("click", function () {
+  sketch("black");
+});
+const getRandomColor = function () {
+  return Math.floor(Math.random() * 255);
+};
+rgbButton.addEventListener("click", function () {
+  let colorRed = getRandomColor();
+  let colorGreen = getRandomColor();
+  let colorBlue = getRandomColor();
   cells.forEach((cell) => {
-    cell.classList.add("cell-white");
+    cell.addEventListener("mouseover", function (e) {
+      if (colorBlue <= 230 && colorRed <= 230 && colorGreen <= 230) {
+        colorBlue += 25;
+        colorRed += 25;
+        colorGreen += 25;
+      } else {
+        colorBlue = getRandomColor();
+        colorGreen = getRandomColor();
+        colorRed = getRandomColor();
+      }
+      console.log(colorBlue);
+
+      e.target.style.backgroundColor = `RGB(${colorRed},${colorGreen},${colorBlue})`;
+    });
   });
 });
-
-slider.addEventListener("change", function (e) {
-  gridNumber = e.target.value;
-  gridSize.textContent = gridNumber;
-  deleteBoard();
-  createBoard(gridNumber, "black");
+colorPicker.addEventListener("change", function (e) {
+  sketch(e.target.value);
 });
-
-blackButton.addEventListener("click", function () {
-  deleteBoard();
-  createBoard(gridNumber, "black");
-});
-
-eraserButton.addEventListener("click", eraser);

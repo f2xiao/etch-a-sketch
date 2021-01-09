@@ -113,12 +113,7 @@ input {
   font-family: inherit;
   color: inherit;
 }
-.cell-black {
-  background-color: #1a1c20;
-}
-.cell-white {
-  background-color: #ffffff;
-}
+
 .cell {
   border: 0.05rem solid rgb(243, 240, 240);
 }
