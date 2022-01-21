@@ -2,7 +2,7 @@
 
 ## Live
 
-![Live by f2xiao]()
+![Live by f2xiao](https://github.com/f2xiao/etch-a-sketch/blob/main/images/screen%20recording.gif)
 
 A browser version of a sketch board with DOM manipulation.
 
