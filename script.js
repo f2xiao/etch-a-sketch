@@ -26,6 +26,9 @@ const sketch = function (color) {
     cell.addEventListener("mouseover", function (e) {
       e.target.style.backgroundColor = `${color}`;
     });
+    cell.addEventListener("touchmove", function (e) {
+      e.target.style.backgroundColor = `${color}`;
+    });
   });
 };
 
