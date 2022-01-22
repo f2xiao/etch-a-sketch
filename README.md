@@ -20,4 +20,4 @@ A browser version of a sketch board with DOM manipulation.
 
 - HTML5
 - CSS3
-- Vanila JavaScript: mainly DOM manipulation
+- Vanilla JavaScript: mainly DOM manipulation
