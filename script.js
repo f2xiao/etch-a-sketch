@@ -29,6 +29,12 @@ const sketch = function (color) {
     cell.addEventListener("touchmove", function (e) {
       e.target.style.backgroundColor = `${color}`;
     });
+    cell.addEventListener("touchstart", function (e) {
+      e.target.style.backgroundColor = `${color}`;
+    });
+    cell.addEventListener("touchend", function (e) {
+      e.target.style.backgroundColor = `${color}`;
+    });
   });
 };
 
