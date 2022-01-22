@@ -15,7 +15,7 @@ A browser version of a sketch board with DOM manipulation.
 - Sketch pad with divs grids
 - Hover effect: the grid divs change color when your mouse passes over them
 - Clear button: clear the whole pad
-- Eraser button: clear the grid when hover
+- Eraser button: clear individual grid when mouse hover
 - Customized settings: colors(Black, RGB, selected color), grid size
 
 ## Analysis
