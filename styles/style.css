@@ -1,8 +1,8 @@
 :root {
   --primary-color: #f9813a;
   --secondary-color: #ffd5cd;
-  --max-height: 50rem;
-  --max-width: 50rem;
+  --max-height: 500px;
+  --max-width: 500px;
 }
 
 *,
