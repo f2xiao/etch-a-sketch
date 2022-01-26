@@ -26,15 +26,9 @@ const sketch = function (color) {
     cell.addEventListener("mouseover", function (e) {
       e.target.style.backgroundColor = `${color}`;
     });
-    cell.addEventListener("touchmove", function (e) {
-      e.target.style.backgroundColor = `${color}`;
-    });
-    cell.addEventListener("touchstart", function (e) {
-      e.target.style.backgroundColor = `${color}`;
-    });
-    cell.addEventListener("touchend", function (e) {
-      e.target.style.backgroundColor = `${color}`;
-    });
+    cell.addEventListener("touchstart", handleStart);
+    cell.addEventListener("touchmove", handleMove);
+    cell.addEventListener("touchend", handleEnd);
   });
 };
 
@@ -91,3 +85,19 @@ rgbButton.addEventListener("click", function () {
 colorPicker.addEventListener("change", function (e) {
   sketch(e.target.value);
 });
+
+function handleStart(evt) {
+  evt.preventDefault();
+  let touches = evt.changedTouches;
+  console.log(touches);
+}
+function handleMove(evt) {
+  evt.preventDefault();
+  let touches = evt.changedTouches;
+  console.log("touches Move");
+}
+function handleEnd(evt) {
+  evt.preventDefault();
+  let touches = evt.changedTouches;
+  console.log("touches End");
+}
