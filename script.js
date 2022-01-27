@@ -9,10 +9,19 @@ const colorPicker = document.getElementById("colorpicker");
 let cells, gridNumber, color;
 let rgbFlag = false;
 const init = function () {
+  color = "white";
   rgbFlag = false;
   gridNumber = slider.value;
   gridSize.textContent = gridNumber;
   createBoard(gridNumber);
+  cells = gridContainer.querySelectorAll("div");
+  cells.forEach((cell) => {
+    cell.classList.add("cell");
+  });
+  gridContainer.addEventListener("mouseover", sketch);
+  gridContainer.addEventListener("touchstart", handleStart);
+  gridContainer.addEventListener("touchmove", handleMove);
+  gridContainer.addEventListener("touchend", handleEnd);
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -52,14 +61,6 @@ const createBoard = function (gridNumber) {
     }
   }
   gridContainer.style = `grid-template-columns: repeat(${gridNumber},1fr)`;
-  cells = gridContainer.querySelectorAll("div");
-  cells.forEach((cell) => {
-    cell.classList.add("cell");
-  });
-  gridContainer.addEventListener("mouseover", sketch);
-  gridContainer.addEventListener("touchstart", handleStart);
-  gridContainer.addEventListener("touchmove", handleMove);
-  gridContainer.addEventListener("touchend", handleEnd);
 };
 
 clearButton.addEventListener("click", function () {
@@ -92,26 +93,61 @@ colorPicker.addEventListener("change", function (e) {
   color = e.target.value;
 });
 
+let ongoingTouches = [];
+
 function handleStart(evt) {
   evt.preventDefault();
   let touches = evt.changedTouches;
-  console.log(touches);
-  for (let i = 0; i < touches.length; i++) {
-    console.log(`touchstart: ${i}`);
-    sketch(touches[i]);
-  }
+  console.log(touches[0]);
+  sketch(touches[0]);
+  // Array.from(cells).map((cell) => {
+  //   console.log(`cellLeft: ${cell.offsetLeft}`);
+  //   console.log(`cellTop: ${cell.offsetTop}`);
+  //   console.log(cell.offsetTop);
+  // });
 }
 function handleMove(evt) {
   evt.preventDefault();
   let touches = evt.changedTouches;
   console.log("touches Move");
-  for (let i = 0; i < touches.length; i++) {
-    console.log(`touchstart: ${i}`);
-    sketch(touches[i]);
+  // console.log(touches[0]);
+  let width = getCellWidth();
+  let [x, y] = [touches[0].clientX, touches[0].clientY];
+  console.log(x, y);
+  console.log("----------------------------------------------");
+  let targetCell = Array.from(cells).find(
+    (cell) =>
+      cell.offsetLeft < x &&
+      cell.offsetLeft + width > x &&
+      cell.offsetTop < y &&
+      cell.offsetTop + width > y
+  );
+  console.log(targetCell);
+  console.log("----------------------------------------------");
+  if (targetCell) {
+    if (
+      !targetCell.style.backgroundColor ||
+      targetCell.style.backgroundColor != color
+    ) {
+      if (rgbFlag) {
+        color = generateRandomColor();
+      }
+      targetCell.style.backgroundColor = color;
+    }
   }
 }
+
 function handleEnd(evt) {
   evt.preventDefault();
   let touches = evt.changedTouches;
-  console.log("touches End");
+  console.log("touches end");
+  sketch(touches[0]);
 }
+
+function getCellWidth() {
+  let cell = document.querySelector(".cell");
+  return cell.offsetWidth;
+}
+
+console.log(gridContainer.offsetLeft);
+console.log(gridContainer.offsetTop);
