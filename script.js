@@ -5,6 +5,7 @@ const clearButton = document.getElementById("clear");
 const blackButton = document.getElementById("black");
 const eraserButton = document.getElementById("eraser");
 const rgbButton = document.getElementById("rgb");
+const btns = document.getElementsByTagName("button");
 const colorPicker = document.getElementById("colorpicker");
 let cells, gridNumber, color;
 let rgbFlag = false;
@@ -18,6 +19,7 @@ const init = function () {
   cells.forEach((cell) => {
     cell.classList.add("cell");
   });
+  // btns.forEach((btn) => {});
   gridContainer.addEventListener("mouseover", sketch);
   gridContainer.addEventListener("touchstart", handleStart);
   gridContainer.addEventListener("touchmove", handleMove);
